@@ -27,12 +27,26 @@ public class World {
 
 
     public void update(long now){
+        updateTrains(now);
+    }
+
+
+    public void updateTrains(long now){
         for (Train t:trains){
-            t.move();
-            if (t.hasArrived()){
-                t.newDest();
-                out.println("Yo");
+            if (t.isAtStation()){
+                if (now-t.getArrivalTime()>500_000_000){
+                    out.println(now-t.getArrivalTime());
+                    t.newDest();
+                    t.setAtStation(false);
+                }
+            } else {
+                t.move();
+                if (t.hasArrived(now)){
+                    t.setArrivalTime(now);
+                    t.setAtStation(true);
+                }
             }
+
         }
     }
 

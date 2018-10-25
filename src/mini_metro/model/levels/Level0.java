@@ -1,7 +1,5 @@
 package mini_metro.model.levels;
 
-
-
 import mini_metro.model.Line;
 import mini_metro.model.Station;
 import mini_metro.model.Train;
@@ -10,12 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static mini_metro.model.levels.LevelUtils.*;
 
-/*
-    Basic level to test ships and movement of
-
- */
 public class Level0 implements ILevel {
 
     List<Station> stations=new ArrayList<>();
@@ -35,12 +28,16 @@ public class Level0 implements ILevel {
         stations.add(e);
         Line yellow=new Line(new ArrayList<>(Arrays.asList(a, b, c)));
         Line red=new Line(new ArrayList<>(Arrays.asList(e, b, d)));
+        Line purple=new Line(new ArrayList<>(Arrays.asList(a, e, c, b, d, a)));
         lines.add(yellow);
         lines.add(red);
+        lines.add(purple);
         Train yellow1=new Train(yellow);
         Train red1=new Train(red);
+        Train purple1=new Train(purple);
         trains.add(yellow1);
         trains.add(red1);
+        trains.add(purple1);
     }
 
 

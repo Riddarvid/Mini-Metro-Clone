@@ -10,7 +10,7 @@ public class Station implements IPositionable {
 
     private final double x;
     private final double y;
-    private final double diameter=15;
+    private static final double diameter=15;
     private final String name;
 
 
@@ -67,5 +67,9 @@ public class Station implements IPositionable {
     @Override
     public int hashCode() {
         return Objects.hash(connectedStations, x, y, diameter, name);
+    }
+
+    public static double getDiameter() {
+        return diameter;
     }
 }
