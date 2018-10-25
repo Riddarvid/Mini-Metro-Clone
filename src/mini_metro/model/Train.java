@@ -14,6 +14,9 @@ public class Train implements IPositionable {
     private double scaling;
     private final double speed=1;
 
+    private long arrivalTime;
+    private boolean isAtStation=false;
+
     private Station destination;
     private Station latest;
     private List<Station> stations;
@@ -38,11 +41,16 @@ public class Train implements IPositionable {
         y += dy;
     }
 
-    public boolean hasArrived(){
-        return (dx>=0&&x>=destination.getX()||dx<=0&&x<=destination.getX())&&(dy>=0&&y>=destination.getY()||dy<=0&&y<=destination.getY());
+    public boolean hasArrived(long now){
+        if ((dx>=0&&x>=destination.getX()||dx<=0&&x<=destination.getX())&&(dy>=0&&y>=destination.getY()||dy<=0&&y<=destination.getY())){
+            return true;
+        }
+        return false;
     }
 
-    public void newDest(){
+
+
+    public void newDest(){          //Sets new destination, updates speed
         if (destination.equals(stations.get(0))){
             destination=stations.get(1);
             latest=stations.get(0);
@@ -85,5 +93,21 @@ public class Train implements IPositionable {
     @Override
     public double getHeight() {
         return height;
+    }
+
+    public long getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public boolean isAtStation() {
+        return isAtStation;
+    }
+
+    public void setArrivalTime(long arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+    public void setAtStation(boolean atStation) {
+        isAtStation = atStation;
     }
 }

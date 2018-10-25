@@ -30,11 +30,11 @@ import static mini_metro.model.World.GAME_HEIGHT;
 public class GameGUI extends Application {
 
 
-    private World world;          // Reference to the OO model
-    private boolean running = false;    // Is game running?
+    private World world;
+    private boolean running = false;
 
 
-    // ---- Menu handling -----------------
+    //Menu handling
 
     private void handleMenu(ActionEvent e) {
         MenuItem mi = (MenuItem) e.getSource();
@@ -48,15 +48,15 @@ public class GameGUI extends Application {
             case "Exit":
                 System.exit(0);
                 break;
-            default: // Nothing
+            default:
         }
     }
 
-    // ---------- Menu actions ---------------------
+    //Menu actions
 
     private void newGame() {
 
-        world = new World(new Level0());  // TODO Create the OO model by using a Level parameter
+        world = new World(new Level0());
 
         timer.start();
 
@@ -69,31 +69,20 @@ public class GameGUI extends Application {
     }
 
 
-    // --- Handling events coming form the model -----
+    //Event handling
 
     private void handleModelEvent(Event evt) {
-        if (evt.type == Event.Type.ROCKET_HIT_SHIP) {
-
-        } else if (evt.type == Event.Type.ROCKET_LAUNCHED) {
-
-        } else if (evt.type == Event.Type.BOMB_HIT_GROUND) {
-
-        } else if (evt.type == Event.Type.BOMB_HIT_GUN) {
-
-        } else if (evt.type == Event.Type.BOMB_HIT_ROCKET) {
-
-        } else if (evt.type == Event.Type.SHIP_HIT_GROUND){
-
-        } else if (evt.type == Event.Type.SHIP_HIT_GUN){
-
-        } else if (evt.type == Event.Type.GAME_OVER){
-
-        } else if (evt.type == Event.Type.CHECK_MUSIC){
+        if (evt.type == Event.Type.GAME_OVER) {
 
         }
     }
 
-    // ************* Rendering and JavaFX below (nothing to do)  *************
+    //Rendering
+
+    private AnimationTimer timer;
+    private GraphicsContext fg;   // Foreground
+    private GraphicsContext bg;   // Background
+    private Menu menuBar;
 
     private void render() {
         fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
@@ -112,7 +101,7 @@ public class GameGUI extends Application {
     }
 
     private void renderLines(){
-        Color[] colors={Color.YELLOW, Color.RED, Color.PURPLE};
+        Color[] colors={Color.YELLOW, Color.RED, Color.PURPLE, Color.BLUE};
         for (int i=0; i<world.getLines().size(); i++){
             renderLine(world.getLines().get(i), colors[i]);
         }
@@ -131,15 +120,10 @@ public class GameGUI extends Application {
     private void renderTrains(){
         fg.setFill(Color.BLACK);
         for (Train t:world.getTrains()){
-            fg.fillRect(t.getX(), t.getY(), t.getWidth(), t.getHeight());
+            fg.fillRect(t.getX()+Station.getDiameter()/2-t.getWidth()/2, t.getY()+Station.getDiameter()/2-t.getHeight()/2, t.getWidth(), t.getHeight());
         }
     }
 
-
-    private AnimationTimer timer;
-    private GraphicsContext fg;   // Foreground
-    private GraphicsContext bg;   // Background
-    private Menu menuBar;
 
     @Override
     public void start(Stage primaryStage) {
