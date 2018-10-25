@@ -79,10 +79,13 @@ public class GameGUI extends Application {
 
     //Rendering
 
+
+
     private AnimationTimer timer;
     private GraphicsContext fg;   // Foreground
     private GraphicsContext bg;   // Background
     private Menu menuBar;
+
 
     private void render() {
         fg.clearRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
