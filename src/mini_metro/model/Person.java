@@ -19,6 +19,7 @@ public class Person implements IPositionable{
         current=stations.get(rand.nextInt(stations.size()));
         stations.remove(current);
         destination=stations.get(rand.nextInt(stations.size()));
+        current.addPassenger(this);
     }
 
 

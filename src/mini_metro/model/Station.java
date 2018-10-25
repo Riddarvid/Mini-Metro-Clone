@@ -12,6 +12,15 @@ public class Station implements IPositionable {
     private final double y;
     private static final double diameter=15;
     private final String name;
+    private List<Person> passengers;
+
+    public void addPassenger(Person p){
+        passengers.add(p);
+    }
+
+    public void removePassenger(Person p){
+        passengers.remove(p);
+    }
 
 
     public Station(double x, double y, String name) {

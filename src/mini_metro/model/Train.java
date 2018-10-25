@@ -21,6 +21,9 @@ public class Train implements IPositionable {
     private Station latest;
     private List<Station> stations;
     private Line line;
+    private List<Person> passengers;
+    private int maxPassengers;
+    private int nPassengers=0;
 
     public Train(Line line) {
         this.line = line;
@@ -72,6 +75,21 @@ public class Train implements IPositionable {
         scaling = speed/Math.pow(Math.pow(distanceX, 2)+Math.pow(distanceY, 2), 0.5);
         dx = distanceX*scaling;
         dy = distanceY*scaling;
+    }
+
+
+    public boolean addPassenger(Person passenger){
+        if (nPassengers<maxPassengers){
+            passengers.add(passenger);
+            latest.removePassenger(passenger);
+            return true;
+        }
+        return false;
+    }
+
+    public void removePassenger(Person p){
+        passengers.remove(p);
+        latest.addPassenger(p);
     }
 
 
