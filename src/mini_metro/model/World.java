@@ -35,7 +35,6 @@ public class World {
         for (Train t:trains){
             if (t.isAtStation()){
                 if (now-t.getArrivalTime()>500_000_000){
-                    out.println(now-t.getArrivalTime());
                     t.newDest();
                     t.setAtStation(false);
                 }
