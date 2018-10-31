@@ -16,10 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-import mini_metro.model.Line;
-import mini_metro.model.Station;
-import mini_metro.model.Train;
-import mini_metro.model.World;
+import mini_metro.model.*;
 import mini_metro.model.levels.ILevel;
 import mini_metro.model.levels.Level0;
 import mini_metro.event.*;
@@ -79,8 +76,6 @@ public class GameGUI extends Application {
 
     //Rendering
 
-
-
     private AnimationTimer timer;
     private GraphicsContext fg;   // Foreground
     private GraphicsContext bg;   // Background
@@ -92,14 +87,47 @@ public class GameGUI extends Application {
         renderLines();
         renderStations();
         renderTrains();
+        renderPassengers();
+    }
+
+    private void renderPassengers(){
+        fg.setFill(Color.BLACK);
+        for (Station s:world.getStations()){
+            for (int i=0; i<s.getPassengers().size(); i++){
+                renderShape(s.getPassengers().get(i), 20+i*s.getPassengers().get(i).getWidth()*2);
+            }
+        }
+
+    }
+
+    private void renderShape(IPositionable p){
+        if(p.getType()== Station.Type.CIRCLE) {
+            fg.fillOval(p.getX(), p.getY(), p.getWidth(), p.getHeight());
+        } else if(p.getType()== Station.Type.SQUARE){
+            fg.fillRect(p.getX(),p.getY(),p.getWidth(),p.getHeight());
+        } else {
+            double[] xpos={p.getX(), p.getX()+p.getWidth()/2, p.getX()+p.getWidth()};
+            double[] ypos={p.getY()+p.getHeight(), p.getY(), p.getY()+p.getHeight()};
+            fg.fillPolygon(xpos, ypos, 3);
+        }
+    }
+
+    private void renderShape(IPositionable p, double xoffset){
+        if(p.getType()== Station.Type.CIRCLE) {
+            fg.fillOval(p.getX()+xoffset, p.getY(), p.getWidth(), p.getHeight());
+        } else if(p.getType()== Station.Type.SQUARE){
+            fg.fillRect(p.getX()+xoffset,p.getY(),p.getWidth(),p.getHeight());
+        } else {
+            double[] xpos={p.getX()+xoffset, p.getX()+xoffset+p.getWidth()/2, p.getX()+xoffset+p.getWidth()};
+            double[] ypos={p.getY()+p.getHeight(), p.getY(), p.getY()+p.getHeight()};
+            fg.fillPolygon(xpos, ypos, 3);
+        }
     }
 
     private void renderStations(){
         fg.setFill(Color.GREEN);
-        fg.setFont(new Font(10));
         for (Station s:world.getStations()){
-            fg.fillOval(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-            fg.fillText(s.getName(), s.getX()+s.getWidth(), s.getY()+s.getHeight()*2);
+            renderShape(s);
         }
     }
 

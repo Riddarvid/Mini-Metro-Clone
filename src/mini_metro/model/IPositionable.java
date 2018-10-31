@@ -11,4 +11,6 @@ public interface IPositionable {
 
     double getHeight();
 
+    Station.Type getType();
+
 }

@@ -5,14 +5,22 @@ import mini_metro.model.levels.Level0;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.System.nanoTime;
 import static java.lang.System.out;
+import java.util.Random;
 
 public class World {
 
+    public static final Random rand=new Random();
     public static final double GAME_WIDTH = 800;
     public static final double GAME_HEIGHT = 500;
 
+    public static final long ONE_SEC = 1_000_000_000;
+    public static final long HALF_SEC = 500_000_000;
+    public static final long TENTH_SEC = 100_000_000;
 
+    private long timeSinceLastSpawn=nanoTime();
     private List<Line> lines;
     private List<Station> stations;
     private ILevel level;
@@ -28,6 +36,19 @@ public class World {
 
     public void update(long now){
         updateTrains(now);
+        updatePassengers(now);
+    }
+
+    private void updatePassengers(long now) {
+        if (now-timeSinceLastSpawn>=10*ONE_SEC){
+            new Passenger(stations);
+            timeSinceLastSpawn=now;
+            out.println("Spawn");
+        }
+    }
+
+    private void spawnPassenger() {
+
     }
 
 
