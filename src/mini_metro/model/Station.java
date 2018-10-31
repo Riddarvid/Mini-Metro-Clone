@@ -11,22 +11,30 @@ public class Station implements IPositionable {
     private final double x;
     private final double y;
     private static final double diameter=15;
-    private final String name;
-    private List<Person> passengers;
+    private List<Passenger> passengers=new ArrayList<>();
+    private final Type type;
 
-    public void addPassenger(Person p){
-        passengers.add(p);
+    public enum Type{
+        SQUARE,
+        CIRCLE,
+        TRIANGLE
     }
 
-    public void removePassenger(Person p){
+    public void addPassenger(Passenger p){
+        passengers.add(p);
+        p.setX(this.x);
+        p.setY(this.y);
+    }
+
+    public void removePassenger(Passenger p){
         passengers.remove(p);
     }
 
 
-    public Station(double x, double y, String name) {
+    public Station(double x, double y, Type type) {
         this.x = x;
         this.y = y;
-        this.name = name;
+        this.type = type;
     }
 
     public void addConnection (Station station){
@@ -35,6 +43,10 @@ public class Station implements IPositionable {
 
     public List<Station> getConnectedStations() {
         return connectedStations;
+    }
+
+    public List<Passenger> getPassengers() {
+        return passengers;
     }
 
     @Override
@@ -57,8 +69,8 @@ public class Station implements IPositionable {
         return diameter;
     }
 
-    public String getName() {
-        return name;
+    public Type getType() {
+        return type;
     }
 
     @Override
@@ -70,12 +82,12 @@ public class Station implements IPositionable {
                 Double.compare(station.y, y) == 0 &&
                 Double.compare(station.diameter, diameter) == 0 &&
                 Objects.equals(connectedStations, station.connectedStations) &&
-                Objects.equals(name, station.name);
+                Objects.equals(type, station.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(connectedStations, x, y, diameter, name);
+        return Objects.hash(connectedStations, x, y, diameter, type);
     }
 
     public static double getDiameter() {

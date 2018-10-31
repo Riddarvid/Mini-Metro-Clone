@@ -21,7 +21,7 @@ public class Train implements IPositionable {
     private Station latest;
     private List<Station> stations;
     private Line line;
-    private List<Person> passengers;
+    private List<Passenger> passengers;
     private int maxPassengers;
     private int nPassengers=0;
 
@@ -78,7 +78,7 @@ public class Train implements IPositionable {
     }
 
 
-    public boolean addPassenger(Person passenger){
+    public boolean addPassenger(Passenger passenger){
         if (nPassengers<maxPassengers){
             passengers.add(passenger);
             latest.removePassenger(passenger);
@@ -87,7 +87,7 @@ public class Train implements IPositionable {
         return false;
     }
 
-    public void removePassenger(Person p){
+    public void removePassenger(Passenger p){
         passengers.remove(p);
         latest.addPassenger(p);
     }
@@ -111,6 +111,11 @@ public class Train implements IPositionable {
     @Override
     public double getHeight() {
         return height;
+    }
+
+    @Override
+    public Station.Type getType() {
+        return null;
     }
 
     public long getArrivalTime() {

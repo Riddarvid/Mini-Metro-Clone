@@ -1,6 +1,7 @@
 package mini_metro.model.levels;
 
 import mini_metro.model.Line;
+import mini_metro.model.Passenger;
 import mini_metro.model.Station;
 import mini_metro.model.Train;
 
@@ -16,11 +17,11 @@ public class Level0 implements ILevel {
     List<Train> trains=new ArrayList<>();
 
     public Level0(){
-        Station a=new Station(100, 100, "A");
-        Station b=new Station(200, 300, "B");
-        Station c=new Station(400, 300, "C");
-        Station d=new Station(200, 400, "D");
-        Station e=new Station(200, 100, "E");
+        Station a=new Station(100, 100, Station.Type.CIRCLE);
+        Station b=new Station(200, 300, Station.Type.SQUARE);
+        Station c=new Station(400, 300, Station.Type.TRIANGLE);
+        Station d=new Station(200, 400, Station.Type.TRIANGLE);
+        Station e=new Station(200, 100, Station.Type.CIRCLE);
         stations.add(a);
         stations.add(b);
         stations.add(c);
